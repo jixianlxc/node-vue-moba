@@ -1,24 +1,24 @@
 <template>
-  <el-form label-width="80px">
+  <div>
     <h1>{{id ? '编辑' : '新建'}}分类</h1>
-    <el-form @submit.native.prevent="save">
+    <el-form @submit.native.prevent="save" label-width="100px">
       <el-form-item label="上级分类">
-        <el-select v-model="model.parent" >
+        <el-select v-model="model.parent">
           <el-option v-for="item in parents" :key="item._id" :label='item.name' :value='item._id'></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="名称">
-        <el-input v-model="model.name" type="text"></el-input>
+        <el-input v-model="model.name"  type="text"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
       </el-form-item>
     </el-form>
-  </el-form>
+  </div>
 </template>
 <style scoped>
-  el-input{
-    width :200px
+  .el-input {
+    width: 200px
   }
 </style>
 <script>
@@ -33,16 +33,18 @@
       }
     },
     created() {
+      this.model = {}
       this.fetchParents()
       this.id && this.fetch()
     },
+
     methods: {
       async save() {
 
         if (this.id) {
-          await this.$http.put(`categories/${this.id}`, this.model)
+          await this.$http.put(`rest/categories/${this.id}`, this.model)
         } else {
-          await this.$http.post('categories', this.model)
+          await this.$http.post('rest/categories', this.model)
         }
 
         this.$router.push('/categories/list')
@@ -52,11 +54,11 @@
         })
       },
       async fetch() {
-        const res = await this.$http.get(`categories/${this.id}`)
+        const res = await this.$http.get(`rest/categories/${this.id}`)
         this.model = res.data
       },
       async fetchParents() {
-        const res = await this.$http.get(`categories`)
+        const res = await this.$http.get(`rest/categories`)
         this.parents = res.data
       }
     }
