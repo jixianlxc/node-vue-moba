@@ -13,6 +13,6 @@ require('./routes/admin/index')(app)
 
 
 
-app.listen(3000, () => {
-  console.log("Express running at:\n"+"http://localhost:3000")
+app.listen(3001, () => {
+  console.log("Express running at:\n"+"http://localhost:3001")
 })
