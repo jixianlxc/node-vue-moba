@@ -8,13 +8,11 @@ module.exports = app =>{
 
 
   router.post('/',async(req,res)=>{
-
     const model = await req.Model.create(req.body)
     res.send(model)
   })
 
-  router.put('/:id',async(req,res)=>{
-    
+  router.put('/:id',async(req,res)=>{    
     const model = await req.Model.findByIdAndUpdate(req.params.id,req.body)
     res.send(model)
   })
@@ -24,7 +22,6 @@ module.exports = app =>{
     if(req.Model.modelName = 'Category'){
       queryOptions.populate = 'parent'
     }
-
     const items = await req.Model.find().setOptions(queryOptions).limit(10)
     res.send(items)
   })
@@ -35,7 +32,6 @@ module.exports = app =>{
   })
  
   router.delete('/:id',async(req,res)=>{
-    console.log(req.params)
     await req.Model.findByIdAndDelete(req.params.id,req.body)
     res.send({
       success:true
@@ -47,5 +43,15 @@ module.exports = app =>{
     req.Model = require(`../../models/${modelName}`)
     next()
   },router)
+
+  const multer = require('multer')
+  const upload = multer({
+    dest:__dirname + '/../../uploads'
+  })
+  app.post('/admin/api/upload',upload.single('file'),async(req,res)=>{
+    const file = req.file
+    file.url = `http://localhost:3001/uploads/${file.filename}`
+    res.send(file)
+  })
 }
 
