@@ -1,27 +1,20 @@
 <template>
   <div>
     <h1>{{id ? '编辑' : '新建'}}英雄</h1>
-    <el-form @submit.native.prevent="save"  label-width="80px" label-position="right">
+    <el-form @submit.native.prevent="save" label-width="80px" label-position="right">
       <el-tabs>
         <el-tab-pane label="基本信息">
-          
-            <el-form-item label="名称">
-              <el-input v-model="model.name" type="text"></el-input>
-            </el-form-item>
-        
-          
-            <el-form-item label="称号">
-              <el-input v-model="model.title" type="text"></el-input>
-            </el-form-item>
-        
-          
+          <el-form-item label="名称">
+            <el-input v-model="model.name" type="text"></el-input>
+          </el-form-item>
+          <el-form-item label="称号">
+            <el-input v-model="model.title" type="text"></el-input>
+          </el-form-item>
           <el-form-item label="类型">
             <el-select v-model="model.categories" multiple>
               <el-option v-for="item in categories" :label="item.name" :value='item._id' :key='item._id'></el-option>
             </el-select>
           </el-form-item>
-        
-    
           <el-form-item label="难度">
             <el-rate v-model="model.scores.difficult" style="line-height=40px" show-score :allow-half=true></el-rate>
           </el-form-item>
@@ -62,13 +55,15 @@
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="技能">
+          <el-button type="text">{{model.name}}</el-button>
           <el-button type="text" @click="model.skills.push({})"><i class="el-icon-plus"></i>添加技能</el-button>
           <el-row type="flex" style="flex-wrap:wrap" :gutter="20">
             <el-col :md="11" v-for="(item,index) in model.skills" :key="index">
               <el-card class="box-card" style="margin-bottom:20px">
                 <div slot="header" class="clearfix">
                   <span>技能{{ index + 1 }}</span>
-                  <el-button style="float: right; padding: 3px 0; color:#F56C6C"  type="text" @click="model.skills.splice(index,1)">删除</el-button>
+                  <el-button style="float: right; padding: 3px 0; color:#F56C6C" type="text"
+                    @click="model.skills.splice(index,1)">删除</el-button>
                 </div>
                 <el-form-item label="名称">
                   <el-input v-model="item.name"></el-input>

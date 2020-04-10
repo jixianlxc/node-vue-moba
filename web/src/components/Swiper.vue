@@ -1,30 +1,18 @@
 <template>
-  <div class="home">
-    <swipers/>
-    <div class="nav-icons bg-white mt-3 d-flex flex-wrap text-center">
-      <div class="nav-items" v-for="item in 10" :key=item>
-        <i class="sprite sprite-news"></i>
-        <div>爆料站zzzz</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        
-      </div>
-    </div>
-  </div>
+    <swiper :options="swiperOption">
+      <swiper-slide class="swiper-slide">
+        <img class="w-100" src="../assets/654e2025b51f89efd0646f328fc86986.jpeg">
+      </swiper-slide>
+      <swiper-slide class="swiper-slide">
+        <img class="w-100" src="../assets/c88a971d41876919cb2514e470c9e218.jpeg">
+      </swiper-slide>
+      <div class="swiper-pagination " style="text-align:right;" slot="pagination"></div>   <!-- 分页 -->
+    </swiper>
 </template>
-
 <script>
-// @ is an alias to /src
-import swipers from '@/components/Swiper.vue'
 
 export default {
-  name: 'home',
-  components: {
-    swipers
-  },
+  name: 'swipercmp',
   data(){
     return{
       swiperOption: {
@@ -51,7 +39,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
   .swiper-pagination-bullet{
     background: white;

@@ -28,7 +28,6 @@ const schema = new mongoose.Schema({
     hero:{type:mongoose.SchemaTypes.ObjectId},
     description:{type:String}
   }]
-
 })
 
 module.exports = mongoose.model('Hero',schema)

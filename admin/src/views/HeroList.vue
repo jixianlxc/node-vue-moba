@@ -1,11 +1,13 @@
 <template>
   <div class="about">
-    <h1>英雄列表</h1>
+    <h1>英雄列表{{}}</h1>
     <el-table :data="heroes">
-      <el-table-column prop="_id" label="Id" width="400"></el-table-column>
+      <el-table-column prop="_id" label="Id" width="200"></el-table-column>
       <el-table-column prop="name" label="英雄名称"></el-table-column>
       <el-table-column prop="title" label="英雄称号"></el-table-column>
-      <el-table-column prop="categories" label="英雄类型"></el-table-column>
+      <el-table-column label="英雄类型" prop='...categories'>
+        <!-- {{heroes[0]}} -->
+      </el-table-column>
       <el-table-column prop="scores.difficult" label="难度"></el-table-column>
       <el-table-column prop="scores.skills" label="技能"></el-table-column>
       <el-table-column prop="scores.attack" label="攻击"></el-table-column>
@@ -23,6 +25,7 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- <h1>    {{heroes[0].name}}</h1> -->
   </div>
 </template>
 
@@ -30,16 +33,33 @@
   export default {
     data() {
       return {
-        heroes: []
+        heroes: [],
+        test:'11111'
       }
     },
     created() {
       this.fetch()
     },
+    computed:{
+
+    },
     methods: {
+      heroCategory(){
+        // const that = this
+        // let str = ''
+        // for(let i=0;i<heroes.length;i++){
+        //   for(let j=0;j<heroes[i].categories.length;j++){
+            
+        //   }
+          
+        // } 
+        return 111
+      },
       async fetch() {
         const res = await this.$http.get('rest/heroes')
         this.heroes = res.data
+        // console.log(...th)
+        // this.heroes.categories
       },
       async remove(row){
         this.$confirm(`是否确定删除物品 "${row.name}"`, '提示', {
