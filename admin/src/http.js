@@ -18,7 +18,10 @@ http.interceptors.response.use(res => {
   return res
   }, 
   err => {  
-    if(err.response.message){
+    console.log(err.response)
+    if(err.response.data.message){
+      console.log(err)
+      //elementUI的提示框$message
       Vue.prototype.$message({
         type:'error',
         message: err.response.data.message
