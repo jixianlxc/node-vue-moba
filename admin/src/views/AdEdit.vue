@@ -6,30 +6,27 @@
         <el-input v-model="model.name" type="text"></el-input>
       </el-form-item>
       <el-form-item label="广告">
-        <el-button type="text" @click="model.items.push({})"><i class="el-icon-plus"></i>添加技能</el-button>
+        <el-button type="text" @click="model.items.push({})"><i class="el-icon-plus"></i>添加广告</el-button>
         <el-row type="flex" style="flex-wrap:wrap" :gutter="20">
           <el-col :md="11" v-for="(item,index) in model.items" :key="index">
             <el-card class="box-card" style="margin-bottom:20px">
               <div slot="header" class="clearfix">
-                <span>技能{{ index + 1 }}</span>
+                <span>广告{{ index + 1 }}</span>
                 <el-button style="float: right; padding: 3px 0; color:#F56C6C" type="text"
                   @click="model.items.splice(index,1)">删除</el-button>
               </div>
-              <el-form-item label="名称">
+              <el-form-item label="跳转链接（url）">
                 <el-input v-model="item.name"></el-input>
               </el-form-item>
-              <el-form-item label="图标">
-                <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
-                  :on-success="res => $set(item, 'icon', res.url)">
-                  <img v-if="item.icon" :src="item.icon" class="avatar">
+              <el-form-item label="图片">
+                <el-upload class="avatar-uploader" 
+                  :action="$http.defaults.baseURL + '/upload'" 
+                  :show-file-list="false"
+                  :on-success="res => $set(item, 'image', res.url)" 
+                  :headers="getAuthHeader()">
+                  <img v-if="item.image" :src="item.image" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height:100px"></i>
                 </el-upload>
-              </el-form-item>
-              <el-form-item label="描述">
-                <el-input v-model="item.discription" type="textarea"></el-input>
-              </el-form-item>
-              <el-form-item label="小提示">
-                <el-input v-model="item.tips" type="textarea"></el-input>
               </el-form-item>
             </el-card>
           </el-col>
@@ -55,8 +52,7 @@
       return {
         model: {
           items:[]
-        },
-        parents: []
+        }
       }
     },
     created() {

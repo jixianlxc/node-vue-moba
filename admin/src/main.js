@@ -8,6 +8,16 @@ import store from './store'
 Vue.config.productionTip = false
 Vue.prototype.$http = http
 
+Vue.mixin({
+  methods:{
+    getAuthHeader(){
+      return{
+        Authorization:`Bearer ${localStorage.token || ''}`
+      } 
+    }
+  }
+})
+
 new Vue({
   router,
   store,

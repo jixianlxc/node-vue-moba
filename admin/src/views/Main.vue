@@ -55,7 +55,7 @@
             <el-dropdown-item>删除</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>{{loginUser.username}}</span>
       </el-header>
 
       <el-main>
@@ -87,13 +87,17 @@
 <script>
   export default {
     data() {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      };
       return {
-        tableData: Array(20).fill(item)
+        loginUser:{}
+      }
+    },
+    created(){
+      // this.fetch() 
+    },
+    methods:{
+      async fetch(){
+        const res = await this.$http.get(`rest/items/${this.id}`)
+        this.loginUser = res.data
       }
     }
   };
