@@ -8,7 +8,7 @@
       </div>
       <button href="" class="btn bg-primary py-1 px-2">立即下载</button>
     </div>
-    <div class="nav bg-primary d-flex pt-3 pb-2 jc-around text-white">
+    <div class="nav-reverse bg-primary pt-3 pb-2 jc-around">
       <div class="nav-item active">
         <router-link tag="div" to="/">首页</router-link>
       </div>    
