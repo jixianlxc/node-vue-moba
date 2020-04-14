@@ -7,39 +7,16 @@
         <div>爆料站zzzz</div>
       </div>
     </div>
-
-    <m-card title='新闻资讯' icon='icon-menu'>      
-      <div class="card-body pt-2">
-        <div class="nav d-flex pb-2 jc-between">
-          <div class="nav-item active">
-            <div class="nav-link">热门</div>
+    <m-list-card title='新闻列表' icon='icon-menu' :categories='newsData'>
+      <template #list='{list}'>
+          <div class="d-flex my-2" v-for='(item,index) in list' :key="index">
+            <span>[{{item.categoryName}}]</span>
+            <span>｜</span>
+            <span>{{item.title}}</span>
+            <span>{{item.date}}</span>
           </div>
-          <div class="nav-item">
-            <div class="nav-link">新闻</div>
-          </div>
-          <div class="nav-item">
-            <div class="nav-link">公告</div>
-          </div>
-          <div class="nav-item">
-            <div class="nav-link">活动</div>
-          </div>
-          <div class="nav-item">
-            <div class="nav-link">赛事</div>
-          </div>
-        </div>
-        <swiper>
-          <swiper-slide class="swiper-slide" v-for='m in 5' :key='m'>
-            <div class="d-flex my-2" v-for='n in 5' :key="n">
-              <span>[新闻]</span>
-              <span>｜</span>
-              <span>王者荣耀新版本上线</span>
-              <span class="flex-1">04/11</span>
-            </div>
-          </swiper-slide>
-        </swiper>
-      </div>
-    </m-card>
-    <m-card title='aa' icon='icon-menu'>slot</m-card>
+      </template>
+    </m-list-card>
   </div>
 </template>
 
@@ -73,7 +50,78 @@
           loop: true,
           //开启鼠标滚轮控制Swiper切换
           mousewheel: true
-        }
+        },
+        newsData:[
+          {
+            name:'热门',
+            list:[
+              {
+                categoryName:'公告',
+                title:'停服维护更新公告',
+                date:'06/01'
+              },
+              {
+                categoryName:'公告',
+                title:'停服维护更新公告',
+                date:'06/01'
+              },
+              {
+                categoryName:'公告',
+                title:'停服维护更新公告',
+                date:'06/01'
+              },
+              {
+                categoryName:'公告',
+                title:'停服维护更新公告',
+                date:'06/01'
+              },
+              {
+                categoryName:'公告',
+                title:'停服维护更新公告',
+                date:'06/01'
+              }
+            ]
+          },
+          {
+            name:'新闻',
+            list: new Array(5).fill('').map(v=>({
+                categoryName:'新闻',
+                title:'停服维护更新公告'+v,
+                date:'06/01'
+              })
+            )
+          },
+          {
+            name:'新闻',
+            list: new Array(5).fill('').map(v=>(
+              {
+                categoryName:'新闻',
+                title:'停服维护更新公告'+v,
+                date:'06/01'
+              }
+            ))
+          },
+          {
+            name:'新闻',
+            list: new Array(5).fill('').map(v=>(
+              {
+                categoryName:'新闻',
+                title:'停服维护更新公告'+v,
+                date:'06/01'
+              }
+            ))
+          },
+          {
+            name:'新闻',
+            list: new Array(5).fill().map(v=>(
+              {
+                categoryName:'新闻',
+                title:'停服维护更新公告'+v,
+                date:'06/01'
+              }
+            ))
+          }
+        ]
       }
     }
   }
