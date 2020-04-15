@@ -9,11 +9,11 @@
     </div>
     <m-list-card title='新闻列表' icon='icon-menu' :categories='newsData'>
       <template #list='{list}'>
-          <div class="d-flex my-2" v-for='(item,index) in list' :key="index">
-            <span>[{{item.categoryName}}]</span>
-            <span>｜</span>
-            <span>{{item.title}}</span>
-            <span>{{item.date}}</span>
+          <div class="d-flex py-1 fs-lg" v-for='(item,index) in list' :key="index">
+            <span class="text-grey">[{{item.categoryName}}]</span>
+            <span class="px-1">｜</span>
+            <span class="text-dark flex-1 text-ellipsis pr-1">{{item.title}}</span>
+            <span class="text-grey">{{item.createdAt|date}}</span>
           </div>
       </template>
     </m-list-card>
@@ -23,11 +23,16 @@
 <script>
   // @ is an alias to /src
   import swipers from '@/components/Swiper.vue'
-
+  import dayjs from 'dayjs'
   export default {
     name: 'home',
     components: {
       swipers
+    },
+    filters:{
+      date(v){
+        return dayjs(v).format('MM/DD')
+      }
     },
     data() {
       return {
@@ -52,77 +57,86 @@
           mousewheel: true
         },
         newsData:[
-          {
-            name:'热门',
-            list:[
-              {
-                categoryName:'公告',
-                title:'停服维护更新公告',
-                date:'06/01'
-              },
-              {
-                categoryName:'公告',
-                title:'停服维护更新公告',
-                date:'06/01'
-              },
-              {
-                categoryName:'公告',
-                title:'停服维护更新公告',
-                date:'06/01'
-              },
-              {
-                categoryName:'公告',
-                title:'停服维护更新公告',
-                date:'06/01'
-              },
-              {
-                categoryName:'公告',
-                title:'停服维护更新公告',
-                date:'06/01'
-              }
-            ]
-          },
-          {
-            name:'新闻',
-            list: new Array(5).fill('').map(v=>({
-                categoryName:'新闻',
-                title:'停服维护更新公告'+v,
-                date:'06/01'
-              })
-            )
-          },
-          {
-            name:'新闻',
-            list: new Array(5).fill('').map(v=>(
-              {
-                categoryName:'新闻',
-                title:'停服维护更新公告'+v,
-                date:'06/01'
-              }
-            ))
-          },
-          {
-            name:'新闻',
-            list: new Array(5).fill('').map(v=>(
-              {
-                categoryName:'新闻',
-                title:'停服维护更新公告'+v,
-                date:'06/01'
-              }
-            ))
-          },
-          {
-            name:'新闻',
-            list: new Array(5).fill().map(v=>(
-              {
-                categoryName:'新闻',
-                title:'停服维护更新公告'+v,
-                date:'06/01'
-              }
-            ))
-          }
+          // {
+          //   name:'热门',
+          //   list:[
+          //     {
+          //       categoryName:'公告',
+          //       title:'停服维护更新公告',
+          //       date:'06/01'
+          //     },
+          //     {
+          //       categoryName:'公告',
+          //       title:'停服维护更新公告',
+          //       date:'06/01'
+          //     },
+          //     {
+          //       categoryName:'公告',
+          //       title:'停服维护更新公告',
+          //       date:'06/01'
+          //     },
+          //     {
+          //       categoryName:'公告',
+          //       title:'停服维护更新公告',
+          //       date:'06/01'
+          //     },
+          //     {
+          //       categoryName:'公告',
+          //       title:'停服维护更新公告',
+          //       date:'06/01'
+          //     }
+          //   ]
+          // },
+          // {
+          //   name:'新闻',
+          //   list: new Array(5).fill('').map(v=>({
+          //       categoryName:'新闻',
+          //       title:'停服维护更新公告'+v,
+          //       date:'06/01'
+          //     })
+          //   )
+          // },
+          // {
+          //   name:'新闻',
+          //   list: new Array(5).fill('').map(v=>(
+          //     {
+          //       categoryName:'新闻',
+          //       title:'停服维护更新公告'+v,
+          //       date:'06/01'
+          //     }
+          //   ))
+          // },
+          // {
+          //   name:'新闻',
+          //   list: new Array(5).fill('').map(v=>(
+          //     {
+          //       categoryName:'新闻',
+          //       title:'停服维护更新公告'+v,
+          //       date:'06/01'
+          //     }
+          //   ))
+          // },
+          // {
+          //   name:'新闻',
+          //   list: new Array(5).fill().map(v=>(
+          //     {
+          //       categoryName:'新闻',
+          //       title:'停服维护更新公告'+v,
+          //       date:'06/01'
+          //     }
+          //   ))
+          // }
         ]
       }
+    },
+    methods:{
+      async fetchNews(){
+        const res = await this.$http.get('/news/list')
+        this.newsData = res.data
+      }
+    },
+    created(){
+      this.fetchNews()
     }
   }
 </script>

@@ -16,6 +16,11 @@ Vue.config.productionTip = false
 Vue.component('m-card',Card)
 Vue.component('m-list-card',ListCard)
 
+import axios from 'axios'
+Vue.prototype.$http = axios.create({
+  baseURL:'http://localhost:3001/web/api'
+})
+
 new Vue({
   router,
   render: h => h(App)

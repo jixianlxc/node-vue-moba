@@ -20,6 +20,29 @@
       </div>    
     </div>
     <router-view/>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
   </div>
 </template>
 
@@ -29,3 +52,10 @@ export default {
   // name: 'main'
 }
 </script>
+<style lang="scss">
+  .topbar{
+    position: sticky;
+    top:0;
+    z-index: 999;
+  }
+</style>

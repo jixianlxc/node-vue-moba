@@ -20,7 +20,7 @@ module.exports = app => {
 
   //更新资源
   router.put('/:id', async (req, res) => {
-    const model = await req.Model.findBkyIdAndUpdate(req.params.id, req.body)
+    const model = await req.Model.findByIdAndUpdate(req.params.id, req.body)
     res.send(model)
   })
 
