@@ -10,7 +10,7 @@
           <div class="nav-link">{{item.name}}</div>
         </div>
       </div>
-      <swiper ref='list' @slide-change="(a)=>{active = $refs.list.swiper.realIndex}">
+      <swiper ref='list' @slide-change="(a)=>{active = $refs.list.swiper.realIndex}" :options="{autoHeight:true}">
         <swiper-slide class="swiper-slide" v-for='(item,index) in categories' :key='index'>
           <slot name="list" :list='item.list'></slot>
         </swiper-slide>

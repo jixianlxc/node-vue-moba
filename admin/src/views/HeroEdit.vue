@@ -70,8 +70,8 @@
                 </el-form-item>
                 <el-form-item label="图标">
                   <el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'"
-                    :show-file-list="false" :on-success="res => $set(item, 'icon', res.url)">
-                    <img v-if="item.icon" :src="item.icon" class="avatar">
+                    :show-file-list="false" :on-success="res => $set(item, 'avater', res.url)">
+                    <img v-if="item.avater" :src="item.avater" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height:100px"></i>
                   </el-upload>
                 </el-form-item>
@@ -102,7 +102,7 @@
       return {
         model: {
           name: '',
-          icon: '',
+          avater: '',
           scores: {
 
           },

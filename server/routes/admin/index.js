@@ -36,7 +36,7 @@ module.exports = app => {
         queryOptions.populate = 'categories'
       }
 
-      const items = await req.Model.find().setOptions(queryOptions).limit(10)
+      const items = await req.Model.find().setOptions(queryOptions).limit(50)
       res.send(items)
     })
 
