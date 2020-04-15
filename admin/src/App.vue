@@ -1,11 +1,11 @@
 <template>
   <div >
     <router-view></router-view>
-    <div>
+    <!-- <div>
       <button @click="add()">+1</button>
       <button @click="addAsync()">+1Async</button>
       <h1>{{$store.state.count}}</h1>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

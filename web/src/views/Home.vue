@@ -9,17 +9,17 @@
     </div>
     <m-list-card title='新闻列表' icon='icon-menu' :categories='newsData'>
       <template #list='{list}'>
-          <div class="d-flex py-2" v-for='(item,index) in list' :key="index">
-            <span class="text-grey">[{{item.categoryName}}]</span>
-            <span class="px-1">｜</span>
-            <span class="text-dark flex-1 text-ellipsis pr-1">{{item.title}}</span>
-            <span class="text-grey">{{item.createdAt|date}}</span>
-          </div>
+        <router-link tag='div' :to="`/article/${item._id}`" class="d-flex py-2" v-for='(item,index) in list' :key="index">
+          <span class="text-grey">[{{item.categoryName}}]</span>
+          <span class="px-1">｜</span>
+          <span class="text-dark flex-1 text-ellipsis pr-1">{{item.title}}</span>
+          <span class="text-grey">{{item.createdAt|date}}</span>
+        </router-link>
       </template>
     </m-list-card>
     <m-list-card title='英雄列表' icon='icon-card-hero' :categories='heroData'>
       <template #list='{list}'>
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap" style="margin:0 -0.5rem">
           <div class=" py-2 text-center w-20 px-2" v-for='(item,index) in list' :key="index">
               <img :src="item.avatar" alt="" class="w-100">
               <div>{{item.name}}</div>

@@ -59,7 +59,10 @@ module.exports = app => {
     })
     res.send(cats)
   })
-
+  router.get('/news/:id',async(req,res)=>{
+    const article = await Article.findById(req.params.id).lean()
+    res.send(article)
+  })
    // 导入英雄数据
    router.get('/heroes/init', async (req, res) => {
     await Hero.deleteMany({})
