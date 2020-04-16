@@ -8,8 +8,49 @@ module.exports = app => {
 
   const inflection = require('inflection')
 
+
+  //资源中间件
+  const resourceMiddleware = require('../../middleware/resource')()
   //登陆校验中间件
   const authMiddleware = require('../../middleware/auth')()
+  //错误处理
+  app.use(async(err,req,res,next)=>{
+    res.status(err.status || 500).send({
+      message:err.message
+    })
+  })
+  //资源列表
+  app.use('/admin/api/rest/:resource', authMiddleware, resourceMiddleware, router)
+
+
+  //获取资源
+  router.get('/',
+    async (req, res) => {
+      const queryOptions = {}
+      if (req.Model.modelName === 'Category') {
+        queryOptions.populate = 'parent'
+      } else if (req.Model.modelName === 'Hero') {
+        queryOptions.populate = 'categories'
+      } 
+      const items = await req.Model.find().setOptions(queryOptions).limit(50)
+      res.send(items)
+    })
+
+  //根据id获取资源详情
+  router.get('/:id', async (req, res) => {
+    const model = await req.Model.findById(req.params.id)
+    res.send(model)
+  })
+
+
+
+  //删除资源
+  router.delete('/:id', async (req, res) => {
+    await req.Model.findByIdAndDelete(req.params.id, req.body)
+    res.send({
+      success: true
+    })
+  })
 
   //添加资源
   router.post('/', async (req, res) => {
@@ -24,50 +65,29 @@ module.exports = app => {
     res.send(model)
   })
 
-  //获取资源
-  router.get('/',
-
-    async (req, res) => {
-      const queryOptions = {}
-      if (req.Model.modelName === 'Category') {
-        queryOptions.populate = 'parent'
-
-      } else if (req.Model.modelName === 'Hero') {
-        queryOptions.populate = 'categories'
-      }
-
-      const items = await req.Model.find().setOptions(queryOptions).limit(50)
-      res.send(items)
-    })
-
-  //根据id获取资源详情
-  router.get('/:id', async (req, res) => {
-    const model = await req.Model.findById(req.params.id)
-    res.send(model)
-  })
-
-  //删除资源
-  router.delete('/:id', async (req, res) => {
-    await req.Model.findByIdAndDelete(req.params.id, req.body)
-    res.send({
-      success: true
-    })
-  })
-  //资源中间件
-  const resourceMiddleware = require('../../middleware/resource')()
-  //资源列表
-  app.use('/admin/api/rest/:resource', authMiddleware, resourceMiddleware, router)
 
   const multer = require('multer')
   const upload = multer({
     dest: __dirname + '/../../uploads'
   })
+
+  app.get('/admin/api/loginUser',async(req,res)=>{
+    const AdminUser = require('../../models/AdminUser')
+    const token = String(req.headers.authorization || '').split(' ').pop()//获取token
+
+    const { id } = require('jsonwebtoken').verify(token,req.app.get('secret'))//校验token传过来的id是多少
+    const user = await AdminUser.findById(id)
+    res.send(user)
+  })
+
+  //上传文件
   app.post('/admin/api/upload', authMiddleware,upload.single('file'), async (req, res) => {
     const file = req.file
     file.url = `http://localhost:3001/uploads/${file.filename}`
     res.send(file)
   })
 
+  //登陆
   app.post('/admin/api/login', async (req, res) => {
     const {username,password} = req.body
 
@@ -98,12 +118,5 @@ module.exports = app => {
     const token = jwt.sign({id: user._id}, app.get('secret'))//生成token，第一个参数是数据，第二个是密钥
     res.send({token})
   })
-
-  app.use(async(err,req,res,next)=>{
-    res.status(err.status || 500).send({
-      message:err.message
-    })
-  })
-
 }
 

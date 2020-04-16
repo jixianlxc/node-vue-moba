@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100vh; border: 1px solid #eee">
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-      <el-menu router  unique-opened :default-active="$route.path">
+      <el-menu router unique-opened :default-active="$route.path">
         <el-submenu index="1">
           <template slot="title"><i class="el-icon-message"></i>内容管理</template>
           <el-menu-item-group>
@@ -48,14 +48,15 @@
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
         <el-dropdown>
+          <span class="px-2">用户:{{loginUser.username}}</span>
+          <div style="display:inline-block" class="m-2"><a @click="signOut" >退出登陆</a></div>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item @click="signOut">退出登陆</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>{{loginUser.username}}</span>
+        
       </el-header>
 
       <el-main>
@@ -93,12 +94,24 @@
       }
     },
     created(){
-      // this.fetch() 
+      localStorage.token && this.fetch() 
     },
     methods:{
       async fetch(){
-        const res = await this.$http.get(`rest/items/${this.id}`)
+        const res = await this.$http.get('/loginUser')
         this.loginUser = res.data
+        console.log(this.loginUser)
+      },
+      signOut(){
+        console.log(1)
+        this.$confirm(`是否确认退出登陆`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/login')
+          localStorage.clear()
+        })
       }
     }
   };
