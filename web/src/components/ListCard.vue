@@ -1,5 +1,5 @@
 <template>
-  <m-card :title='title' :icon='icon'>
+  <m-card :title='title' :icon='icon' class="p-3">
     <div class="card-body pt-2">
       <div class="nav d-flex pb-2 jc-between">
         <div class="nav-item" 

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const schema = new mongoose.Schema({
   name:{type:String},
   avatar:{type:String},
+  banner:{type:String},
   title:{type:String},
   categories:[
     {type:mongoose.SchemaTypes.ObjectId,ref:'Category'}
@@ -16,6 +17,8 @@ const schema = new mongoose.Schema({
   skills:[{
     icon:{type:String},
     name:{type:String},
+    cost:{type:String},
+    cd:{type:String},
     discription:{type:String},
     tips:{type:String},
   }],
@@ -25,6 +28,14 @@ const schema = new mongoose.Schema({
   battleTips:{type:String},
   teamTips:{type:String},
   partners:[{
+    hero:{type:mongoose.SchemaTypes.ObjectId},
+    description:{type:String}
+  }],
+  counters:[{
+    hero:{type:mongoose.SchemaTypes.ObjectId},
+    description:{type:String}
+  }],
+  canCounterHeroes:[{
     hero:{type:mongoose.SchemaTypes.ObjectId},
     description:{type:String}
   }]

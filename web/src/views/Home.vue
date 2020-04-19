@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <swipers />
-    <div class="nav-icons bg-white mt-3 d-flex flex-wrap text-center">
+    <!-- <div class="nav-icons bg-white mt-3 d-flex flex-wrap text-center">
       <div class="nav-items" v-for="item in 10" :key=item>
         <i class="sprite sprite-news"></i>
         <div>爆料站zzzz</div>
       </div>
-    </div>
+    </div> -->
     <m-list-card title='新闻列表' icon='icon-menu' :categories='newsData'>
       <template #list='{list}'>
         <router-link tag='div' :to="`/article/${item._id}`" class="d-flex py-2" v-for='(item,index) in list' :key="index">
@@ -20,10 +20,10 @@
     <m-list-card title='英雄列表' icon='icon-card-hero' :categories='heroData'>
       <template #list='{list}'>
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem">
-          <div class=" py-2 text-center w-20 px-2" v-for='(item,index) in list' :key="index">
+          <router-link tag='div' :to="`/hero/${item._id}`" class=" py-2 text-center w-20 px-2" v-for='(item,index) in list' :key="index">
               <img :src="item.avatar" alt="" class="w-100">
               <div>{{item.name}}</div>
-          </div>
+          </router-link>
         </div>
       </template>
     </m-list-card>

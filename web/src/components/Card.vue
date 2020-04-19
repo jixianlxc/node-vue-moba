@@ -1,8 +1,8 @@
 <template>
-    <div class="card bg-white p-3 mt-3">
+    <div class="card bg-white  mt-3">
       <div class="card-header d-flex ai-center pb-3">
         <i class="iconfont" :class="icon"></i>
-        <div class="fs-l px-2 flex-1">{{title}}</div>
+        <h2 class="fs-lg px-2 flex-1 m-0">{{title}}</h2>
         <i class="iconfont icon-menu1"></i>
       </div>
       <div class="card-body pt-2">

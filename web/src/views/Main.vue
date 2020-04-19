@@ -9,14 +9,14 @@
       <button href="" class="btn bg-primary py-1 px-2">立即下载</button>
     </div>
     <div class="nav-reverse bg-primary pt-3 pb-2 jc-around">
-      <div class="nav-item active">
-        <router-link tag="div" to="/">首页</router-link>
+      <div class="nav-item" :class="{active:active===0}">
+        <router-link tag="div" to="/" @click="active=0">首页</router-link>
       </div>    
-      <div class="nav-item">
-        <router-link tag="div" to="/">攻略中心</router-link>
+      <div class="nav-item" :class="{active:active===1}">
+        <router-link tag="div" to="/null" @click="active=1">攻略中心</router-link>
       </div>    
-      <div class="nav-item">
-        <router-link tag="div" to="/">赛事中心</router-link>
+      <div class="nav-item" :class="{active:active===2}">
+        <router-link tag="div" to="/null" @click="active=2">赛事中心</router-link>
       </div>    
     </div>
     <router-view/>
@@ -27,6 +27,11 @@
 
 export default {
   // name: 'main'
+  data(){
+    return{
+      active:0
+    }
+  }
 }
 </script>
 <style lang="scss">

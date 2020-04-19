@@ -22,11 +22,9 @@
         items: []
       }
     },
-
     created() {
       this.fetch()
     },
-
     methods: {
       async fetch() {
         const res = await this.$http.get('rest/categories')

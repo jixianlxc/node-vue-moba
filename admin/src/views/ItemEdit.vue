@@ -11,15 +11,15 @@
         <el-input v-model="model.name" type="text"></el-input>
       </el-form-item>
       <el-form-item label="图标">
-     <el-upload
-  class="avatar-uploader"
-  :action="$http.defaults.baseURL + '/upload'"
-  :show-file-list="false"
-  :on-success="afterUpload">
-
-  <img v-if="model.icon" :src="model.icon" class="avatar">
-  <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height:178px"></i>
-</el-upload>
+      <el-upload
+        class="avatar-uploader"
+        :show-file-list="false"
+        :action="uploadUrl"
+        :headers="getAuthHeader()"
+        :on-success="afterUpload">
+        <img v-if="model.icon" :src="model.icon" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height:178px"></i>
+      </el-upload>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>

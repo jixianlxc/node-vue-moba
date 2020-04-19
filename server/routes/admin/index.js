@@ -6,9 +6,6 @@ module.exports = app => {
     mergeParams: true
   })
 
-  const inflection = require('inflection')
-
-
   //资源中间件
   const resourceMiddleware = require('../../middleware/resource')()
   //登陆校验中间件
@@ -19,10 +16,9 @@ module.exports = app => {
       message:err.message
     })
   })
-  //资源列表
+
+  //资源列表路由预处理
   app.use('/admin/api/rest/:resource', authMiddleware, resourceMiddleware, router)
-
-
   //获取资源
   router.get('/',
     async (req, res) => {
@@ -42,8 +38,6 @@ module.exports = app => {
     res.send(model)
   })
 
-
-
   //删除资源
   router.delete('/:id', async (req, res) => {
     await req.Model.findByIdAndDelete(req.params.id, req.body)
@@ -54,7 +48,6 @@ module.exports = app => {
 
   //添加资源
   router.post('/', async (req, res) => {
-    // console.log(req.body)
     const model = await req.Model.create(req.body)
     res.send(model)
   })
@@ -65,21 +58,10 @@ module.exports = app => {
     res.send(model)
   })
 
-
-  const multer = require('multer')
-  const upload = multer({
+  //上传路径中间件
+  const upload = require('multer')({
     dest: __dirname + '/../../uploads'
   })
-
-  app.get('/admin/api/loginUser',async(req,res)=>{
-    const AdminUser = require('../../models/AdminUser')
-    const token = String(req.headers.authorization || '').split(' ').pop()//获取token
-
-    const { id } = require('jsonwebtoken').verify(token,req.app.get('secret'))//校验token传过来的id是多少
-    const user = await AdminUser.findById(id)
-    res.send(user)
-  })
-
   //上传文件
   app.post('/admin/api/upload', authMiddleware,upload.single('file'), async (req, res) => {
     const file = req.file
@@ -87,10 +69,18 @@ module.exports = app => {
     res.send(file)
   })
 
+  //获取用户信息
+  app.get('/admin/api/loginUser',async(req,res)=>{
+    const AdminUser = require('../../models/AdminUser')
+    const token = String(req.headers.authorization || '').split(' ').pop()//获取token
+    const { id } = require('jsonwebtoken').verify(token,req.app.get('secret'))//校验token传过来的id是多少
+    const user = await AdminUser.findById(id)
+    res.send(user)
+  })
+
   //登陆
   app.post('/admin/api/login', async (req, res) => {
     const {username,password} = req.body
-
     //1.根据用户名找用户
     const AdminUser = require('../../models/AdminUser')
 
