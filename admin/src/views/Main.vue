@@ -49,12 +49,12 @@
       <el-header style="text-align: right; font-size: 12px">
         <el-dropdown>
           <span class="px-2">用户:{{loginUser.username}}</span>
-          <div style="display:inline-block" class="m-2"><a @click="signOut" >退出登陆</a></div>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
+          <div style="display:inline-block;padding-left:25px"><a @click="signOut" class="mx-2">退出登陆</a></div>
+          <!-- <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>查看</el-dropdown-item>
             <el-dropdown-item @click="signOut">退出登陆</el-dropdown-item>
-          </el-dropdown-menu>
+          </el-dropdown-menu> -->
         </el-dropdown>
         
       </el-header>
@@ -100,10 +100,8 @@
       async fetch(){
         const res = await this.$http.get('/loginUser')
         this.loginUser = res.data
-        console.log(this.loginUser)
       },
       signOut(){
-        console.log(1)
         this.$confirm(`是否确认退出登陆`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
